@@ -1,0 +1,38 @@
+
+# Model
+diffusion: vit
+task: all
+
+
+
+
+# Numueric Definition
+dim: 3
+channel: 3
+image_size: [128, 144, 128]  # (128, 144, 128)
+
+
+# Boolen Definition
+extract_latent: true
+load_latent: false
+
+
+dataset_csv: ${DATA_DIR}/derived/AD-Progression-multiprior-dt15.csv
+
+
+# Step 1 Train Autoencoder
+temp_path:   ${WORK_DIR}
+
+latent_path: ${DATA_DIR}/derived/latents_ddp_ae10_0875
+output_dir:  fm_model                                       # {temp_path}/{output_dir}
+cache_dir:   fm_cache_dir                                   # {temp_path}/{cache_dir}
+
+
+
+
+# Define the model
+dataloader: dataset.oasis_dataset_3D_pair_latent.get_brain_dataset
+autoencoder:  src.autoencoder.MAISI_Unet3D.init_autoencoder
+flowmatching: src.model3D.networks.init_large_latent_diffusion
+
+

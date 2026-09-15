@@ -1,0 +1,37 @@
+
+# Model
+diffusion: vit
+task: oasis
+
+
+
+
+# Numueric Definition
+dim: 3
+channel: 3
+image_size: [128, 144, 128]  # (128, 144, 128)
+
+
+# Boolen Definition
+extract_latent: true
+load_latent: false
+
+
+dataset_csv: Final/AD-Progression-All.csv
+
+
+# Step 1 Train Autoencoder
+temp_path:   ${WORK_DIR}
+
+latent_path: disease_progression_latents/all_3D      # {temp_path}/{latent_path}
+output_dir:  disease_progression_latents/all_3D      # {temp_path}/{output_dir}
+cache_dir:   extract_cache_dir                        # {temp_path}/{cache_dir}
+
+
+
+# Define the model
+dataloader:  dataset.oasis_dataset_3D_single_full.get_brain_dataset
+autoencoder: src.autoencoder.MAISI_Unet3D.init_autoencoder
+original_autoencoder: src.autoencoder.MAISI_Unet3D.init_autoencoder
+
+

@@ -1,0 +1,40 @@
+
+# Model
+diffusion: vit
+task: all
+
+
+
+
+# Numueric Definition
+dim: 3
+channel: 3
+# image_size: [80, 80, 80]  #[64, 64, 64]  # (128, 144, 128)
+
+image_size: [64, 64, 64]   # MAISI (x4, tiled) only round-trips cubes here: (64,64,64)->latent (4,16,16,16); (64,72,64) gets cropped to 64
+
+
+# Boolen Definition
+extract_latent: true
+load_latent: false
+
+
+dataset_csv: Final/AD-Progression-All.csv     # flat per-timepoint master CSV (relative to data_dir); triplets built on the fly
+
+
+# Step 1 Train Autoencoder
+temp_path:   ${WORK_DIR}
+
+latent_path: disease_progression_latents/all_2D_fused      # {temp_path}/{latent_path}
+output_dir:  ae_model                                       # {temp_path}/{output_dir}
+cache_dir:   ae_cache_dir                                   # {temp_path}/{cache_dir}
+
+
+
+
+# Define the model
+dataloader:  ad_progression   # use dataset.ad_progression_3D_triplet (flat AD-Progression CSV -> triplets)
+autoencoder: src.autoencoder.MAISI_Unet3D.init_autoencoder
+original_autoencoder: src.autoencoder.MAISI_Unet3D.init_autoencoder
+
+

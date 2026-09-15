@@ -1,0 +1,33 @@
+# MambaControl — Python dependencies
+# Install torch first, matched to your CUDA version (see https://pytorch.org).
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+#   pip install -r requirements.txt
+
+torch>=2.1
+torchvision>=0.16
+monai>=1.6
+diffusers>=0.27
+
+nibabel>=5.0
+numpy>=1.24,<2.0
+pandas>=2.0
+scipy>=1.10
+scikit-image>=0.21
+matplotlib>=3.7
+
+tensorboard>=2.14
+tqdm>=4.65
+rich>=13.0
+pyyaml>=6.0
+fire>=0.5
+lpips>=0.1.4
+
+# --- Mamba kernels: required by mambacontrol/mamba.py and control_mamba.py ---
+# Needs a CUDA toolchain (nvcc) and must be built against the installed torch:
+#   pip install causal-conv1d>=1.4.0 --no-build-isolation
+#   pip install mamba-ssm>=2.2.2   --no-build-isolation
+# causal-conv1d>=1.4.0
+# mamba-ssm>=2.2.2
+
+# --- Optional: only for scripts/training/train_aux.py (auxiliary DPM priors) ---
+# leaspy>=1.4
